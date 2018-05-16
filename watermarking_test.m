@@ -14,7 +14,7 @@ dimI=size(I);
 rm=dimI(1);cm=dimI(2);
 %%%%%%以下生成水印信息 %%%%%%
 mark=I;
-alpha=40,
+alpha=50,
 k1=randn(1,8);
 k2=randn(1,8);
 a0=imread('lena.bmp');
@@ -24,8 +24,8 @@ subplot(2,3,2),imshow(a0,[]),title('载体图像');
 cda0=blkproc(a0,[8,8],'dct2');
 %%%%%% 嵌入 %%%%%%
 cda1=cda0;   % cda1 = 256_256
-for i=1:32  % i=1:32
-    for j=1:32  % j=1:32
+for i=1:32 % i=1:32
+    for j=1:32  % j=1:32 载体图像为256_256 i,j最大值不能超过32，否则，line35将超出矩阵维度
         x=(i-1)*8;y=(j-1)*8;
         if mark(i,j)==1
         k=k1;
@@ -40,7 +40,6 @@ for i=1:32  % i=1:32
     cda1(x+6,y+3)=cda0(x+6,y+3)+alpha*k(6);
     cda1(x+7,y+2)=cda0(x+7,y+2)+alpha*k(7);
     cda1(x+8,y+1)=cda0(x+8,y+1)+alpha*k(8);
-   
     end
 end
 %%%%%%嵌入水印后图像 %%%%%%
